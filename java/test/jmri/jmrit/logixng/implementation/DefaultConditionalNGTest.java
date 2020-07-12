@@ -54,7 +54,7 @@ public class DefaultConditionalNGTest {
                 conditionalNG.supportsEnableExecution());
         
         // Test with an action that implements DigitalActionWithEnableExecution
-        DigitalActionBean actionSupportExecution = new IfThenElse("IQDA2", null, IfThenElse.Type.TRIGGER_ACTION);
+        DigitalActionBean actionSupportExecution = new IfThenElse("IQDA2", null);
         socket = InstanceManager.getDefault(DigitalActionManager.class)
                 .registerAction(actionSupportExecution);
         conditionalNG.getChild(0).disconnect();
@@ -98,7 +98,7 @@ public class DefaultConditionalNGTest {
         // Test an action that support enable execution
         conditionalNG.getChild(0).disconnect();
         
-        IfThenElse action2 = new IfThenElse("IQDA2", null, IfThenElse.Type.TRIGGER_ACTION);
+        IfThenElse action2 = new IfThenElse("IQDA2", null);
         MaleSocket socket2 = InstanceManager.getDefault(DigitalActionManager.class)
                 .registerAction(action2);
         conditionalNG.getChild(0).connect(socket2);
@@ -144,7 +144,7 @@ public class DefaultConditionalNGTest {
         // Test an action that support enable execution
         conditionalNG.getChild(0).disconnect();
         
-        IfThenElse action2 = new IfThenElse("IQDA2", null, IfThenElse.Type.TRIGGER_ACTION);
+        IfThenElse action2 = new IfThenElse("IQDA2", null);
         MaleSocket socket2 = InstanceManager.getDefault(DigitalActionManager.class)
                 .registerAction(action2);
         conditionalNG.getChild(0).connect(socket2);

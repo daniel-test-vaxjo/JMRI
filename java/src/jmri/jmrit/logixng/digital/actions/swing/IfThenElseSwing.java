@@ -15,8 +15,6 @@ import jmri.jmrit.logixng.digital.actions.IfThenElse;
  */
 public class IfThenElseSwing extends AbstractActionSwing {
 
-    IfThenElse.Type type = IfThenElse.Type.TRIGGER_ACTION;
-    
     
     @Override
     protected void createPanel(@CheckForNull Base object, @Nonnull JPanel buttonPanel) {
@@ -32,7 +30,7 @@ public class IfThenElseSwing extends AbstractActionSwing {
     /** {@inheritDoc} */
     @Override
     public MaleSocket createNewObject(@Nonnull String systemName, @CheckForNull String userName) {
-        IfThenElse action = new IfThenElse(systemName, userName, type);
+        IfThenElse action = new IfThenElse(systemName, userName);
         return InstanceManager.getDefault(DigitalActionManager.class).registerAction(action);
     }
     

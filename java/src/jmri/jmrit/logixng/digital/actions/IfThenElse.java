@@ -25,36 +25,7 @@ import org.slf4j.LoggerFactory;
 public class IfThenElse extends AbstractDigitalAction
         implements FemaleSocketListener, DigitalActionWithEnableExecution {
 
-    /**
-     * The type of Action. If the type is changed, the action is aborted if it
-     * is currently running.
-     */
-    public enum Type {
-        /**
-         * Action is triggered when the expression is True. The action may
-         * continue even if the expression becomes False.
-         * 
-         * If the expression is False and then True again before the action
-         * is finished, action.executeAgain() is called instead of action.execute().
-         * 
-         * Note that in a tree of actions, some actions may have been finished
-         * and some actions still running. In this case, the actions that are
-         * still running will be called with executeAgain() but those actions
-         * that are finished will be called with execute(). Actions that have
-         * child actions need to deal with this.
-         */
-        TRIGGER_ACTION,
-        
-        /**
-         * Action is executed when the expression is True but only as long as
-         * the expression stays True. If the expression becomes False, the
-         * action is aborted.
-         */
-        CONTINOUS_ACTION,
-    }
-
     private boolean _enableExecution = true;
-    private Type _type;
     private boolean _lastExpressionResult = false;
     private String _ifExpressionSocketSystemName;
     private String _thenActionSocketSystemName;
@@ -63,9 +34,8 @@ public class IfThenElse extends AbstractDigitalAction
     private final FemaleDigitalActionSocket _thenActionSocket;
     private final FemaleDigitalActionSocket _elseActionSocket;
     
-    public IfThenElse(String sys, String user, Type type) {
+    public IfThenElse(String sys, String user) {
         super(sys, user);
-        _type = type;
         _ifExpressionSocket = InstanceManager.getDefault(DigitalExpressionManager.class)
                 .createFemaleSocket(this, this, "E");
         _thenActionSocket = InstanceManager.getDefault(DigitalActionManager.class)
@@ -115,55 +85,6 @@ public class IfThenElse extends AbstractDigitalAction
                 _elseActionSocket.execute();
             }
         }
-    }
-
-    /*.*
-     * Continue execution of this Action.
-     * This method is called if Type == TRIGGER_ACTION, the previous call to
-     * one of the execute???() methods returned True and the expression is
-     * still True.
-     * 
-     * @return true if this action is not finished.
-     *./
-    @Override
-    public boolean executeContinue() {
-        _isExpressionCompleted.set(true);
-        switch (_type) {
-            case TRIGGER_ACTION:
-                _lastActionResult = _thenActionSocket.executeContinue();
-                break;
-                
-            case CONTINOUS_ACTION:
-                boolean exprResult = _ifExpressionSocket.evaluate(_isExpressionCompleted);
-                if (exprResult) {
-                    _lastActionResult = _thenActionSocket.executeContinue();
-                } else {
-                    _thenActionSocket.abort();
-                    _lastActionResult = false;
-                }
-                break;
-                
-            default:
-                throw new RuntimeException(String.format("Unknown type '%s'", _type.name()));
-        }
-        
-        return _lastActionResult || !_isExpressionCompleted.get();
-    }
-*/
-    /**
-     * Get the type.
-     * @return the type
-     */
-    public Type getType() {
-        return _type;
-    }
-    
-    /**
-     * Set the type.
-     * @param type the type
-     */
-    public void setType(Type type) {
-        _type = type;
     }
     
     @Override

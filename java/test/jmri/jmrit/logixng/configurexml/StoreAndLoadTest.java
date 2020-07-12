@@ -61,7 +61,7 @@ public class StoreAndLoadTest {
             femaleSocket = actionManySocket.getChild(0);
             MaleDigitalActionSocket actionIfThenSocket =
                     InstanceManager.getDefault(DigitalActionManager.class)
-                            .registerAction(new IfThenElse(digitalActionManager.getAutoSystemName(), null, IfThenElse.Type.TRIGGER_ACTION));
+                            .registerAction(new IfThenElse(digitalActionManager.getAutoSystemName(), null));
             femaleSocket.connect(actionIfThenSocket);
         } catch (SocketAlreadyConnectedException e) {
             // This should never be able to happen.
@@ -323,7 +323,7 @@ public class StoreAndLoadTest {
         MaleSocket socketHoldAnything = InstanceManager.getDefault(DigitalActionManager.class).registerAction(actionHoldAnything);
         socketSecondMany.getChild(index++).connect(socketHoldAnything);
 */                    
-        IfThenElse actionIfThen2 = new IfThenElse(logixNG_Manager.getSystemNamePrefix()+"DA:AUTO:00012", "My if then", IfThenElse.Type.TRIGGER_ACTION);
+        IfThenElse actionIfThen2 = new IfThenElse(logixNG_Manager.getSystemNamePrefix()+"DA:AUTO:00012", "My if then");
         MaleSocket socketIfThen2 = InstanceManager.getDefault(DigitalActionManager.class).registerAction(actionIfThen2);
         socketSecondMany.getChild(index++).connect(socketIfThen2);
 
@@ -631,7 +631,7 @@ public class StoreAndLoadTest {
         JUnitUtil.initOBlockManager();
         JUnitUtil.initWarrantManager();
         
-        JUnitUtil.initLogixNGManager();
+//        JUnitUtil.initLogixNGManager();
    }
 
     @After

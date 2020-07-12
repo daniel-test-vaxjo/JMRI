@@ -36,8 +36,6 @@ public class IfThenElseXml extends jmri.managers.configurexml.AbstractNamedBeanM
         
         storeCommon(p, element);
 
-        element.setAttribute("type", p.getType().name());
-        
         Element e2 = new Element("ifSocket");
         e2.addContent(new Element("socketName").addContent(p.getChild(0).getName()));
         MaleSocket socket = p.getIfExpressionSocket().getConnectedSocket();
@@ -84,12 +82,9 @@ public class IfThenElseXml extends jmri.managers.configurexml.AbstractNamedBeanM
     @Override
     public boolean load(Element shared, Element perNode) {
         
-        Attribute typeAttribute = shared.getAttribute("type");
-        IfThenElse.Type type = IfThenElse.Type.valueOf(typeAttribute.getValue());
-        
         String sys = getSystemName(shared);
         String uname = getUserName(shared);
-        IfThenElse h = new IfThenElse(sys, uname, type);
+        IfThenElse h = new IfThenElse(sys, uname);
 
         loadCommon(h, shared);
         

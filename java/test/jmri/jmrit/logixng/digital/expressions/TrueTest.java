@@ -175,7 +175,7 @@ public class TrueTest extends AbstractDigitalExpressionTestBase {
         conditionalNG.setRunOnGUIDelayed(false);
         conditionalNG.setEnabled(true);
         logixNG.addConditionalNG(conditionalNG);
-        IfThenElse ifThenElse = new IfThenElse("IQDA321", null, IfThenElse.Type.TRIGGER_ACTION);
+        IfThenElse ifThenElse = new IfThenElse("IQDA321", null);
         MaleSocket maleSocket =
                 InstanceManager.getDefault(DigitalActionManager.class).registerAction(ifThenElse);
         conditionalNG.getChild(0).connect(maleSocket);

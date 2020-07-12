@@ -22,7 +22,6 @@ import org.junit.jupiter.api.*;
 import org.junit.rules.Timeout;
 
 import org.netbeans.jemmy.operators.*;
-import org.openide.util.Exceptions;
 
 
 /*

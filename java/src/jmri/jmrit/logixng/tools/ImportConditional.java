@@ -6,7 +6,6 @@ import jmri.ConditionalAction;
 import jmri.ConditionalVariable;
 import jmri.InstanceManager;
 import jmri.Light;
-import jmri.Logix;
 import jmri.Memory;
 import jmri.NamedBean;
 import jmri.Sensor;
@@ -23,6 +22,7 @@ import jmri.jmrit.logixng.LogixNG;
 import jmri.jmrit.logixng.MaleSocket;
 import jmri.jmrit.logixng.SocketAlreadyConnectedException;
 import jmri.jmrit.logixng.digital.actions.IfThenElse;
+import jmri.jmrit.logixng.digital.actions.Logix;
 import jmri.jmrit.logixng.digital.actions.Many;
 import jmri.jmrit.logixng.digital.expressions.And;
 import jmri.jmrit.logixng.digital.expressions.Antecedent;
@@ -45,7 +45,7 @@ public class ImportConditional {
 //    private final LogixNG _logixNG;
     private final ConditionalNG _conditionalNG;
     
-    public ImportConditional(Logix logix, Conditional conditional, LogixNG logixNG, String conditionalNG_SysName) {
+    public ImportConditional(jmri.Logix logix, Conditional conditional, LogixNG logixNG, String conditionalNG_SysName) {
         
 //        _logix = logix;
         _conditional = conditional;
@@ -59,11 +59,13 @@ public class ImportConditional {
     }
     
     public void doImport() throws SocketAlreadyConnectedException, Exception {
-        boolean triggerOnChange = _conditional.getTriggerOnChange();
-        IfThenElse.Type type = triggerOnChange ? IfThenElse.Type.TRIGGER_ACTION : IfThenElse.Type.CONTINOUS_ACTION;
+//        boolean triggerOnChange = _conditional.getTriggerOnChange();
+//        jmri.jmrit.logixng.digital.actions.Logix logix =
+//                new jmri.jmrit.logixng.digital.actions.Logix("", null);
         
-        // This will fail, but fix it later.
-        IfThenElse ifThen = new IfThenElse("", null, type);
+//        IfThenElse.Type type = triggerOnChange ? IfThenElse.Type.TRIGGER_ACTION : IfThenElse.Type.CONTINOUS_ACTION;
+        
+        IfThenElse ifThen = new IfThenElse("", null);
         
         Conditional.AntecedentOperator ao = _conditional.getLogicType();
         String antecedentExpression = _conditional.getAntecedentExpression();
