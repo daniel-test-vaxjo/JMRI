@@ -8,9 +8,8 @@ import jmri.InstanceManager;
 import jmri.TurnoutManager;
 import jmri.jmrit.logixng.*;
 import jmri.jmrit.logixng.digital.actions.ActionTurnout;
-import jmri.util.JUnitUtil;
-import jmri.jmrit.logixng.digital.actions.ActionTurnout;
 import jmri.jmrit.logixng.swing.SwingConfiguratorInterfaceTestBase;
+import jmri.util.JUnitUtil;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -46,6 +45,8 @@ public class ActionTurnoutSwingTest extends SwingConfiguratorInterfaceTestBase {
     
     @Test
     public void testDialogUseExistingTurnout() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(TurnoutManager.class).provide("IT1");
         InstanceManager.getDefault(TurnoutManager.class).provide("IT2");
         
@@ -67,6 +68,8 @@ public class ActionTurnoutSwingTest extends SwingConfiguratorInterfaceTestBase {
     
     @Test
     public void testDialogCreateNewTurnout() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(TurnoutManager.class).provide("IT1");
         InstanceManager.getDefault(TurnoutManager.class).provide("IT2");
         

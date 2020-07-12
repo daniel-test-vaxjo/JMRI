@@ -55,6 +55,8 @@ public class ExpressionSensorSwingTest extends SwingConfiguratorInterfaceTestBas
     
     @Test
     public void testDialogUseExistingSensor() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(SensorManager.class).provide("IS1");
         InstanceManager.getDefault(SensorManager.class).provide("IS2");
         
@@ -81,6 +83,8 @@ public class ExpressionSensorSwingTest extends SwingConfiguratorInterfaceTestBas
     
     @Test
     public void testDialogCreateNewSensor() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(SensorManager.class).provide("IL1");
         InstanceManager.getDefault(SensorManager.class).provide("IL2");
         

@@ -55,6 +55,8 @@ public class ExpressionLightSwingTest extends SwingConfiguratorInterfaceTestBase
     
     @Test
     public void testDialogUseExistingLight() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(LightManager.class).provide("IL1");
         InstanceManager.getDefault(LightManager.class).provide("IL2");
         
@@ -89,6 +91,8 @@ public class ExpressionLightSwingTest extends SwingConfiguratorInterfaceTestBase
     
     @Test
     public void testDialogCreateNewLight() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(LightManager.class).provide("IL1");
         InstanceManager.getDefault(LightManager.class).provide("IL2");
         

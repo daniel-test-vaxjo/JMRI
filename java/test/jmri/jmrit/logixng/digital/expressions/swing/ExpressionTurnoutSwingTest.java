@@ -55,6 +55,8 @@ public class ExpressionTurnoutSwingTest extends SwingConfiguratorInterfaceTestBa
     
     @Test
     public void testDialogUseExistingTurnout() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(TurnoutManager.class).provide("IT1");
         InstanceManager.getDefault(TurnoutManager.class).provide("IT2");
         
@@ -81,6 +83,8 @@ public class ExpressionTurnoutSwingTest extends SwingConfiguratorInterfaceTestBa
     
     @Test
     public void testDialogCreateNewTurnout() throws SocketAlreadyConnectedException {
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        
         InstanceManager.getDefault(TurnoutManager.class).provide("IT1");
         InstanceManager.getDefault(TurnoutManager.class).provide("IT2");
         
