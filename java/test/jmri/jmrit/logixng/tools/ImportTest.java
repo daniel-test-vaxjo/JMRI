@@ -39,8 +39,27 @@ public class ImportTest {
         ArrayList<ConditionalVariable> variables = new ArrayList<>();
         conditional.setStateVariables(variables);
         
+        ConditionalVariable cv = new ConditionalVariable();
+        cv.setTriggerActions(true);
+        cv.setNegation(true);
+        cv.setNum1(0);
+        cv.setNum2(0);
+        cv.setOpern(Conditional.Operator.OR);
+        cv.setType(Conditional.Type.BLOCK_STATUS_EQUALS);
+        
         ArrayList<ConditionalAction> actions = new ArrayList<>();
         conditional.setAction(actions);
+        
+        ConditionalAction ca = new DefaultConditionalAction();
+        ca.setActionData("aaa");
+        ca.setActionData(0);
+        ca.setActionString("aaa");
+        ca.setDeviceName("aaa");
+        ca.setListener(null);
+        ca.setOption(0);
+        ca.setTimer(null);
+        ca.setType(Conditional.Action.NONE);
+        ca.setType("aaa");
 */
     }
     
