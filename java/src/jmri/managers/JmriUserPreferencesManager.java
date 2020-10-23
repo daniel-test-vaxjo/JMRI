@@ -408,11 +408,13 @@ public class JmriUserPreferencesManager extends Bean implements UserPreferencesM
 
     @Override
     public boolean getCheckboxPreferenceState(String name, boolean defaultState) {
+        System.out.format("getCheckboxPreferenceState: %s: %s, %s, default: %b%n", name, checkBoxLastSelection.get(name), checkBoxLastSelection.getOrDefault(name, defaultState), defaultState);
         return this.checkBoxLastSelection.getOrDefault(name, defaultState);
     }
 
     @Override
     public void setCheckboxPreferenceState(String name, boolean state) {
+        System.out.format("setCheckboxPreferenceState: %s: %s, %s, new default: %b%n", name, checkBoxLastSelection.get(name), checkBoxLastSelection.getOrDefault(name, state), state);
         checkBoxLastSelection.put(name, state);
         setChangeMade(false);
         this.saveComboBoxLastSelections();
@@ -908,20 +910,26 @@ public class JmriUserPreferencesManager extends Bean implements UserPreferencesM
     }
 
     private void readCheckBoxLastSelections() {
+        System.out.format("readCheckBoxLastSelections%n");
         Element element = this.readElement(CHECKBOX_ELEMENT, CHECKBOX_NAMESPACE);
         if (element != null) {
             element.getChildren("checkBox").stream().forEach(checkbox ->
                 checkBoxLastSelection.put(checkbox.getAttributeValue("name"), "yes".equals(checkbox.getAttributeValue("lastChecked"))));
+            element.getChildren("checkBox").stream().forEach(checkbox ->
+                System.out.format("load: %s, %s%n", checkbox.getAttributeValue("name"), checkbox.getAttributeValue("lastChecked")));
         }
     }
 
     private void saveCheckBoxLastSelections() {
+        System.out.format("saveCheckBoxLastSelections%n");
         this.setChangeMade(false);
         if (this.allowSave && !comboBoxLastSelection.isEmpty()) {
+            System.out.format("saveCheckBoxLastSelections aaa%n");
             Element element = new Element(CHECKBOX_ELEMENT, CHECKBOX_NAMESPACE);
             // Do not store blank last entered/selected values
             checkBoxLastSelection.entrySet().stream().
                     filter(cbls -> (cbls.getValue() != null)).map(cbls -> {
+                System.out.format("saveCheckBoxLastSelections bbb%n");
                 Element checkbox = new Element("checkBox");
                 checkbox.setAttribute("name", cbls.getKey());
                 checkbox.setAttribute("lastChecked", cbls.getValue() ? "yes" : "no");
