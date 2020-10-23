@@ -923,7 +923,7 @@ public class JmriUserPreferencesManager extends Bean implements UserPreferencesM
     private void saveCheckBoxLastSelections() {
         System.out.format("saveCheckBoxLastSelections%n");
         this.setChangeMade(false);
-        if (this.allowSave && !comboBoxLastSelection.isEmpty()) {
+        if (this.allowSave && !checkBoxLastSelection.isEmpty()) {
             System.out.format("saveCheckBoxLastSelections aaa%n");
             Element element = new Element(CHECKBOX_ELEMENT, CHECKBOX_NAMESPACE);
             // Do not store blank last entered/selected values
