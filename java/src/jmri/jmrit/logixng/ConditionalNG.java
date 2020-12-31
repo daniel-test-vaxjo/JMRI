@@ -51,6 +51,12 @@ public interface ConditionalNG extends Base, NamedBean {
     public boolean getRunDelayed();
     
     /**
+     * Execute the male socket.
+     * @param maleSocket the male socket to be executed
+     */
+    public void execute(MaleDigitalActionSocket maleSocket);
+    
+    /**
      * Execute the ConditionalNG.
      */
     public void execute();

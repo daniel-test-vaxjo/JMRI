@@ -85,7 +85,13 @@ public class DefaultConditionalNG extends AbstractBase
     
     /** {@inheritDoc} */
     @Override
-    public void execute() {
+    public void execute(MaleDigitalActionSocket maleSocket) {
+        
+        // ActionExecuteDelayed
+        // Timer som kör ett sub-träd vid en senare tidpunkt.
+        // OBS!!! Om editorn ändrar trädet kan denna behöva spärras.
+        
+//    public void execute() {
         if (executeLock.once()) {
             runOnLogixNG_Thread(() -> {
                 while (executeLock.loop()) {
@@ -95,7 +101,8 @@ public class DefaultConditionalNG extends AbstractBase
                         try {
                             InstanceManager.getDefault(LogixNG_Manager.class).setSymbolTable(newSymbolTable);
                             
-                            _femaleSocket.execute();
+                            maleSocket.execute();
+//                            _femaleSocket.execute();
                         } catch (JmriException | RuntimeException e) {
                             switch (_errorHandlingType) {
                                 case LOG_ERROR_ONCE:
@@ -121,6 +128,15 @@ public class DefaultConditionalNG extends AbstractBase
                 }
             });
         }
+    }
+    
+    @Override
+    public void execute() {
+        LogixNG_ThreadingUtil.runOnLogixNG(() -> {
+            if (_femaleSocket.isConnected()) {
+                execute((MaleDigitalActionSocket) _femaleSocket.getConnectedSocket());
+            }
+        });
     }
     
     @Override
