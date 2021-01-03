@@ -1850,8 +1850,13 @@ public class StoreAndLoadTest {
             Assert.assertEquals(0, InstanceManager.getDefault(ModuleManager.class).getNamedBeanSet().size());
             Assert.assertEquals(0, InstanceManager.getDefault(NamedTableManager.class).getNamedBeanSet().size());
             
+            System.out.format("StoreAndLoadTest. stopAllLogixNGThreads%n");
             LogixNG_Thread.stopAllLogixNGThreads();
+            
+            System.out.format("StoreAndLoadTest. assertLogixNGThreadNotRunning%n");
             LogixNG_Thread.assertLogixNGThreadNotRunning();
+            
+            System.out.format("StoreAndLoadTest. All threads should be stopped%n");
             
             
             //**********************************

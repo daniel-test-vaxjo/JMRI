@@ -51,20 +51,23 @@ public class LogixNG_Thread {
     }
     
 //    @InvokeOnGuiThread
-    public static LogixNG_Thread createNewThread(int threadID, String name) {
+    public static LogixNG_Thread createNewThread(int threadId, String name) {
         synchronized (LogixNG_Thread.class) {
-            if (threadID == -1) {
-                threadID = ++_highestThreadID;
+            System.out.format("LogixNG_Thread createNewThread: %d, %s%n", threadId, name);
+            new RuntimeException("Daniel").printStackTrace();
+            
+            if (threadId == -1) {
+                threadId = ++_highestThreadID;
             } else {
-                if (threadID > _highestThreadID) _highestThreadID = threadID;
+                if (threadId > _highestThreadID) _highestThreadID = threadId;
             }
             
-            if (_threads.containsKey(threadID)) {
-                throw new IllegalArgumentException(String.format("Thread ID %d already exists", threadID));
+            if (_threads.containsKey(threadId)) {
+                throw new IllegalArgumentException(String.format("Thread ID %d already exists", threadId));
             }
             
-            LogixNG_Thread thread = new LogixNG_Thread(threadID, name);
-            _threads.put(threadID, thread);
+            LogixNG_Thread thread = new LogixNG_Thread(threadId, name);
+            _threads.put(threadId, thread);
             thread._logixNGThread.start();
             
             return thread;
@@ -311,10 +314,15 @@ public class LogixNG_Thread {
     
     public static void assertLogixNGThreadNotRunning() {
         synchronized(LogixNG_Thread.class) {
+            boolean aThreadIsRunning = false;
             for (LogixNG_Thread thread : _threads.values()) {
                 if (!thread._threadIsStopped) {
-                    throw new RuntimeException("logixNGThread is running");
+                    aThreadIsRunning = true;
+                    thread.stopLogixNGThread();
                 }
+            }
+            if (aThreadIsRunning == true) {
+                throw new RuntimeException("logixNGThread is running");
             }
         }
     }
