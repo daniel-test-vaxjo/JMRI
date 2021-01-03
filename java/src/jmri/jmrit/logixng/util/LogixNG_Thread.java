@@ -63,6 +63,7 @@ public class LogixNG_Thread {
             }
             
             if (_threads.containsKey(threadId)) {
+                new RuntimeException("Daniel :::: "+String.format("Thread ID %d already exists", threadId)).printStackTrace();
                 throw new IllegalArgumentException(String.format("Thread ID %d already exists", threadId));
             }
             
